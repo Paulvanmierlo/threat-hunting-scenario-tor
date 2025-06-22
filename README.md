@@ -33,14 +33,15 @@ Searched for any file that had the string "tor" in it and discovered what looks 
 
 ```kql
 DeviceFileEvents  
-| where DeviceName == "PVM"  
-| where InitiatingProcessAccountName == "PVM"  
+| where DeviceName == "pvm"  
+| where InitiatingProcessAccountName == "pvm"  
 | where FileName contains "tor"  
 | order by Timestamp desc  
 | project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, Account = InitiatingProcessAccountName
 ```
 
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/71402e84-8767-44f8-908c-1805be31122d">
+<img width="1212" alt="image" src=![image](https://github.com/user-attachments/assets/14004956-f13f-4171-946d-5d0f1aaa5387)
+>
 
 ---
 
