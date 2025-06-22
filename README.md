@@ -54,12 +54,13 @@ Searched for any `ProcessCommandLine` that contained the string "tor-browser-win
 
 ```kql
 DeviceProcessEvents  
-| where DeviceName == "PVM"  
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.1.exe"  
+| where DeviceName == "pvm"  
+| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.5.3.exe"  
 | project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
 ```
 
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b07ac4b4-9cb3-4834-8fac-9f5f29709d78">
+![image](https://github.com/user-attachments/assets/9140cc49-57ca-4eab-a07d-ab3e547f7ffd)
+
 
 ---
 
@@ -71,25 +72,26 @@ Searched for any indication that user "PVM" actually opened the TOR browser. The
 
 ```kql
 DeviceProcessEvents  
-| where DeviceName == "PVM"  
+| where DeviceName == "pvm"  
 | where FileName has_any ("tor.exe", "firefox.exe", "tor-browser.exe")  
 | project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine  
 | order by Timestamp desc
 ```
 
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b13707ae-8c2d-4081-a381-2b521d3a0d8f">
+![image](https://github.com/user-attachments/assets/46f36199-d5d4-4530-98a4-cd785550c0f8)
+
 
 ---
 
 ### 4. Searched the `DeviceNetworkEvents` Table for TOR Network Connections
 
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. The user "PVM" successfully established a connection to the remote IP address `176.198.159.33` on port `9001`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\PVM\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
+Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. The user "pvm" successfully established a connection to the remote IP address `45.88.104.74` on port `9001`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\PVM\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
 
 **Query used to locate events:**
 
 ```kql
 DeviceNetworkEvents  
-| where DeviceName == "PVM"  
+| where DeviceName == "pvm"  
 | where InitiatingProcessAccountName != "system"  
 | where InitiatingProcessFileName in ("tor.exe", "firefox.exe")  
 | where RemotePort in ("9001", "9030", "9040", "9050", "9051", "9150", "80", "443")  
@@ -97,7 +99,8 @@ DeviceNetworkEvents
 | order by Timestamp desc
 ```
 
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/87a02b5b-7d12-4f53-9255-f5e750d0e3cb">
+![image](https://github.com/user-attachments/assets/a5252875-3033-47a5-9331-12f879086686)
+
 
 ---
 
